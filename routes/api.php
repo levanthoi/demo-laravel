@@ -25,7 +25,7 @@ Route::prefix("auth")->group(function () {
     Route::post('/login', [AuthController::class, "login"]);
 });
 
-Route::middleware('auth')->controller(TodoController::class)->prefix("todo")->group(function () {
+Route::middleware('auth')->prefix("todo")->group(function () {
     Route::get('/', [TodoController::class, "index"]);
     Route::get('/{id}', [TodoController::class, "show"]);
     Route::post('/', [TodoController::class, "create"]);

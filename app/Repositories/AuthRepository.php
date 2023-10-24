@@ -20,11 +20,17 @@ class AuthRepository implements AuthRepositoryInterface
             'name' => $user["name"],
             'email' => $user["email"],
             'password' => Hash::make($user['password']),
-            'api_token' => Str::random(60),
         ]);
         return $user;
     }
     public function login($user)
     {
+        $alreadyUser = User::where('email', $user["email"])->first();
+        if ($alreadyUser && Hash::check($user['password'], $alreadyUser->password)) {
+            // $token = $alreadyUser->creatToken('api-token');
+            $token = hash('sha256', Str::random(40));
+            return $token;
+        }
+        return "ss";
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Interfaces\TodoRepositoryInterface;
+use App\Interfaces\TodoServiceInterface;
+
 // use App\Repositories\TodoRepository;
 
-class TodoService
+class TodoService implements TodoServiceInterface
 {
     private $todoRepository;
     public function __construct(TodoRepositoryInterface $todoRepository)
@@ -16,7 +18,7 @@ class TodoService
     {
         return $this->todoRepository->getAll();
     }
-    public function getOne(string $id)
+    public function getOne($id)
     {
         return $this->todoRepository->getOne($id);
     }
@@ -24,11 +26,11 @@ class TodoService
     {
         return $this->todoRepository->create($todo);
     }
-    public function update($todo, string $id)
+    public function update($todo, $id)
     {
         return $this->todoRepository->update($todo, $id);
     }
-    public function delete(string $id)
+    public function delete($id)
     {
         return $this->todoRepository->delete($id);
     }

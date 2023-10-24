@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Repositories\AuthRepository;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,18 @@ class AuthController extends Controller
         return response()->json([
             "message" => "Đăng kí thành công",
             "success" => true,
-            "data" => $user
+            "data" => $user,
+            // "accessToken" => $user->createToken("api_token")->plainTextToken
         ]);
     }
-    public function login()
+    public function login(LoginRequest $request)
     {
+        $user = $this->authRepository->login($request->all());
         return response()->json([
             "message" => "Đăng nhập thành công",
-            "success" => true
+            "success" => true,
+            "data" => $user,
+
         ]);
     }
 }
